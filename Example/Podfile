@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'GJTGroupModule_Example' do
+  pod 'GJTGroupModule', :path => '../'
+
+  target 'GJTGroupModule_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
