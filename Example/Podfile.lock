@@ -1,0 +1,54 @@
+PODS:
+  - GJTAdditionKit (0.0.9)
+  - GJTControlsKit (0.0.8):
+    - GJTAdditionKit
+  - GJTGojitoMvvmKit (0.1.3):
+    - GJTAdditionKit (>= 0.0.9)
+    - GJTControlsKit
+    - GJTMvvmKit (> 0.0.6)
+    - Masonry
+  - GJTGroupModule (0.1.0):
+    - GJTControlsKit
+    - GJTGojitoMvvmKit
+    - GJTMvvmKit
+    - Masonry
+  - GJTMvvmKit (0.0.7):
+    - GJTAdditionKit
+    - GJTControlsKit
+    - Masonry
+    - MJRefresh
+    - ReactiveObjC
+  - Masonry (1.1.0)
+  - MJRefresh (3.5.0)
+  - ReactiveObjC (3.1.1)
+
+DEPENDENCIES:
+  - GJTGroupModule (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - GJTAdditionKit
+    - GJTControlsKit
+    - GJTGojitoMvvmKit
+    - GJTMvvmKit
+    - Masonry
+    - MJRefresh
+    - ReactiveObjC
+
+EXTERNAL SOURCES:
+  GJTGroupModule:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  GJTAdditionKit: 0921c8a8124891fde5c9d5395f7f47216d28b42e
+  GJTControlsKit: daf2dc8beec6fcb12a158c85b425af1a4512d4a1
+  GJTGojitoMvvmKit: 2bcf7af67a983a456b9d00e2df6d088c6d0bbbaf
+  GJTGroupModule: 7ddd438fb72dc7f796bdf693579f16f33d2d8bb7
+  GJTMvvmKit: 17da248c4b5af09c82fdc2fb8498ea577e80dfe4
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+
+PODFILE CHECKSUM: 48bf41e32935803457f867ec18ea227ea66fa1a2
+
+COCOAPODS: 1.10.1

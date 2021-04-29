@@ -1,0 +1,6 @@
+framework module GJTGojitoMvvmKit {
+  umbrella header "GJTGojitoMvvmKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

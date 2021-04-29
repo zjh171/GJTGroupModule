@@ -1,0 +1,6 @@
+framework module GJTGroupModule {
+  umbrella header "GJTGroupModule-umbrella.h"
+
+  export *
+  module * { export * }
+}

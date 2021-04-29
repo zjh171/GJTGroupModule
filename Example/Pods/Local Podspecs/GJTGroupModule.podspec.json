@@ -1,0 +1,36 @@
+{
+  "name": "GJTGroupModule",
+  "version": "0.1.0",
+  "summary": "A short description of GJTGroupModule.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/zjh171/GJTGroupModule",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "zjh171": "zjh171@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/zjh171/GJTGroupModule.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "GJTGroupModule/Classes/**/*",
+  "dependencies": {
+    "Masonry": [
+
+    ],
+    "GJTMvvmKit": [
+
+    ],
+    "GJTGojitoMvvmKit": [
+
+    ],
+    "GJTControlsKit": [
+
+    ]
+  }
+}
