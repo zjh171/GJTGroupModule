@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'GJTGroupModule'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of GJTGroupModule.'
+  s.summary          = '群组模块，是 Gojito 的主要模块'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+群组模块，是 Gojito 的主要模块，提供群组列表，群组详情等信息
                        DESC
 
   s.homepage         = 'https://github.com/zjh171/GJTGroupModule'
