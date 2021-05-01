@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         [self addSubview:self.codeImageButton];
-//        [self.codeImageButton addTarget:self action:@selector(codeAddButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.codeImageButton addTarget:self action:@selector(codeAddButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.codeImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(66, 66));
             make.left.equalTo(self).offset(16);
@@ -68,6 +68,17 @@
         
     }
     return self;
+}
+
+-(void) codeAddButtonClicked:(UIButton *) button {
+    if (self.codeButtonDidClickedBlock) {
+        self.codeButtonDidClickedBlock();
+    }
+}
+
+-(void)setCodeImage:(UIImage *)codeImage {
+    _codeImage = codeImage;
+    [self.codeImageButton setImage:codeImage forState:UIControlStateNormal];
 }
 
 

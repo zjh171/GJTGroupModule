@@ -7,6 +7,7 @@
 
 #import "GJTPostGroupInfoItemView.h"
 #import <Masonry/Masonry.h>
+#import <GJTAdditionKit/GJTAdditionKit.h>
 
 @interface GJTPostGroupInfoItemView ()
 
@@ -25,7 +26,7 @@
     if (self =[super init]) {
         [self addSubview:self.iconImageView];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self);
+            make.left.equalTo(self).offset(16);
             make.centerY.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(20, 20));
         }];
@@ -38,7 +39,7 @@
         
         [self addSubview:self.moreArrowImageView];
         [self.moreArrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self);
+            make.right.equalTo(self).offset(-15.f);
             make.centerY.equalTo(self.titleLabel);
             make.size.mas_equalTo(CGSizeMake(20, 20));
         }];
@@ -55,10 +56,10 @@
 
         [self addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.iconImageView);
-            make.right.equalTo(self.moreArrowImageView);
+            make.left.equalTo(self);
+            make.right.equalTo(self);
             make.bottom.equalTo(self).offset(-1);
-            make.height.mas_equalTo(0.5f);
+            make.height.mas_equalTo(0.3f);
         }];
         
         self.titleLabel.text = title;
@@ -79,6 +80,7 @@
 -(UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont systemFontOfSize:14.f];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _titleLabel;
@@ -87,6 +89,7 @@
 - (UILabel *)subTitleLabel {
     if (!_subTitleLabel) {
         _subTitleLabel = [[UILabel alloc] init];
+        _subTitleLabel.font = [UIFont systemFontOfSize:14.f];
         _subTitleLabel.textAlignment = NSTextAlignmentRight;
     }
     return _subTitleLabel;
@@ -104,6 +107,7 @@
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
         _lineView.backgroundColor = UIColor.whiteColor;
+        _lineView.backgroundColor = [UIColor colorWithHexString:@"3d3d3d"];
     }
     return _lineView;
 }

@@ -9,6 +9,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "GJTPostGroupInfoItemView.h"
 #import "GJTGroupPicProcsView.h"
+#import "GJTPostGroupDescView.h"
 
 @interface GJTPostGroupInfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UILabel *textCountLabel;
 
 @property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIView *line2View;
 
 @property (nonatomic, strong) UIButton *confirmButton;
 
@@ -28,17 +30,21 @@
 
 @property (nonatomic, strong) GJTPostGroupInfoItemView *groupTagItemView;
 
-@property (nonatomic, strong) GJTPostGroupInfoItemView *groupOtherItemView;
-
-
+@property (nonatomic, strong) UIScrollView *mScrollView;
 @end
 
 @implementation GJTPostGroupInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"上传";
     
+    self.scrollView = self.mScrollView;
+    self.scrollView.contentSize = CGSizeMake(UIScreen.width,UIScreen.height - 200);
+    [self.view addSubview:self.scrollView];
+
     [self.view addSubview:self.confirmButton];
+    [self.confirmButton addTarget:self action:@selector(confirmButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.confirmButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16.f);
         make.right.equalTo(self.view).offset(-16.f);
@@ -51,8 +57,6 @@
         make.height.mas_equalTo(44.f);
     }];
     
-    
-    self.scrollView.contentSize = CGSizeMake(UIScreen.width,UIScreen.height - 100);
     [self.scrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
         make.left.equalTo(self.view);
@@ -65,60 +69,20 @@
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.top.equalTo(self.scrollView).offset(10);
-        make.height.mas_equalTo(66);
+        make.height.mas_equalTo(88);
     }];
-
-    // Do any additional setup after loading the view.
-//    [self.scrollView addSubview:self.codeImageButton];
-//    [self.codeImageButton addTarget:self action:@selector(codeAddButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.codeImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(66, 66));
-//        make.left.equalTo(self.view).offset(16);
-//        make.top.equalTo(self.scrollView).offset(10);
-//    }];
-//
-//    [self.scrollView addSubview:self.codeDescLabel];
-//    [self.codeDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.codeImageButton.mas_right).offset(12.f);
-//        make.top.equalTo(self.codeImageButton);
-//        make.right.equalTo(self.view).offset(-15.f);
-//    }];
-//
-//    [self.scrollView addSubview:self.codeImagelineView];
-//    [self.codeImagelineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view);
-//        make.height.mas_equalTo(0.3f);
-//        make.top.equalTo(self.codeImageButton.mas_bottom).offset(10.f);
-//        make.right.equalTo(self.view);
-//    }];
-//
-//    // Do any additional setup after loading the view.
-//    [self.scrollView addSubview:self.groupDetailImageButton];
-//    [self.groupDetailImageButton addTarget:self action:@selector(codeAddButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.groupDetailImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(66, 66));
-//        make.left.equalTo(self.view).offset(16);
-//        make.top.equalTo(self.codeImageButton.mas_bottom).offset(20);
-//    }];
-//
-//    [self.scrollView addSubview:self.groupDetailLabel];
-//    [self.groupDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.groupDetailImageButton.mas_right).offset(12.f);
-//        make.top.equalTo(self.groupDetailImageButton);
-//        make.right.equalTo(self.view.mas_right).offset(-15.f);
-//    }];
     
     [self.scrollView addSubview:self.groupNameTextField];
     [self.groupNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.processView.mas_bottom).offset(8.f);
-        make.left.equalTo(self.processView);
+        make.left.equalTo(self.view).offset(16.f);
         make.height.mas_equalTo(44.f);
         make.right.equalTo(self.view).offset(-55.f);
     }];
     
     [self.scrollView addSubview:self.textCountLabel];
     [self.textCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.groupNameTextField);
+        make.centerY.equalTo(self.groupNameTextField);
         make.left.equalTo(self.groupNameTextField.mas_right).offset(8);
         make.width.mas_equalTo(30);
         make.right.equalTo(self.view).offset(-16.f);
@@ -126,46 +90,50 @@
     
     [self.scrollView addSubview:self.lineView];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.groupNameTextField);
+        make.left.equalTo(self.view);
         make.right.equalTo(self.groupNameTextField);
         make.height.mas_equalTo(0.3f);
         make.top.equalTo(self.groupNameTextField.mas_bottom).offset(-2.f);
     }];
     
-   
-    
     [self.scrollView addSubview:self.descTextView];
     [self.descTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(16.f);
+        make.left.equalTo(self.view).offset(12.f);
         make.right.equalTo(self.view).offset(-16.f);
         make.top.equalTo(self.groupNameTextField.mas_bottom).offset(10);
-        make.height.mas_equalTo(200.f);
+        //动态调整高度
+//        make.height.mas_equalTo(25.f);
     }];
+    
+    [self.scrollView addSubview:self.line2View];
+    [self.line2View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.mas_equalTo(0.3f);
+        make.top.equalTo(self.descTextView.mas_bottom).offset(-2.f);
+    }];
+    
     
     [self.scrollView addSubview:self.groupLocationItemView];
     [self.groupLocationItemView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.descTextView.mas_bottom).offset(20.f);
-        make.left.equalTo(self.view).offset(15);
-        make.right.equalTo(self.view).offset(-15);
+        make.top.equalTo(self.descTextView.mas_bottom).offset(10.f);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
         make.height.mas_equalTo(44.f);
     }];
     
     [self.scrollView addSubview:self.groupTagItemView];
     [self.groupTagItemView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.groupLocationItemView.mas_bottom).offset(10.f);
-        make.left.equalTo(self.view).offset(15);
-        make.right.equalTo(self.view).offset(-15);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
         make.height.mas_equalTo(44.f);
     }];
-    
-    [self.scrollView addSubview:self.groupOtherItemView];
-    [self.groupOtherItemView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.groupTagItemView.mas_bottom).offset(150.f);
-        make.left.equalTo(self.view).offset(15);
-        make.right.equalTo(self.view).offset(-15);
-        make.height.mas_equalTo(44.f);
-    }];
-   
+
+}
+
+-(void) confirmButtonDidClicked {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -177,7 +145,8 @@
     // 选择的图片信息存储于info字典中
     NSLog(@"%@", info);
     UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-//    [self.codeImageButton setImage:image forState:UIControlStateNormal];
+    self.processView.codeImage = image;
+    
 }
 
 // 取消图片选择调用此方法
@@ -187,8 +156,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)codeAddButtonClicked :(UIButton *) button {
-    // 判断当前的sourceType是否可用
+-(void) processButtonDidClicked {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             // 实例化UIImagePickerController控制器
         UIImagePickerController * imagePickerVC = [[UIImagePickerController alloc] init];
@@ -209,10 +177,16 @@
     }
 }
 
-
 -(GJTGroupPicProcsView *)processView {
     if (!_processView) {
         _processView = [[GJTGroupPicProcsView alloc] init];
+        
+        __weak typeof(self) weakSelf = self;
+        _processView.codeButtonDidClickedBlock = ^{
+            __strong typeof(self) self = weakSelf;
+            
+            [self processButtonDidClicked];
+        };
     }
     return _processView;
 }
@@ -230,6 +204,7 @@
     if (!_textCountLabel) {
         _textCountLabel = [[UILabel alloc] init];
         _textCountLabel.text = @"20";
+        _textCountLabel.font = [UIFont systemFontOfSize:16.f];
         _textCountLabel.textAlignment = NSTextAlignmentRight;
     }
     return _textCountLabel;
@@ -238,9 +213,17 @@
 -(UIView *)lineView {
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = UIColor.grayColor;
+        _lineView.backgroundColor = [UIColor colorWithHexString:@"3d3d3d"];
     }
     return _lineView;
+}
+
+-(UIView *)line2View {
+    if (!_line2View) {
+        _line2View = [[UIView alloc] init];
+        _line2View.backgroundColor = [UIColor colorWithHexString:@"3d3d3d"];
+    }
+    return _line2View;
 }
 
 -(UIButton *)confirmButton {
@@ -258,10 +241,9 @@
 -(GJTTextView *)descTextView {
     if (!_descTextView) {
         _descTextView = [[GJTTextView alloc] init];
-        _descTextView.layer.borderWidth = 0.5f;
-        _descTextView.layer.borderColor = UIColor.grayColor.CGColor;
-        _descTextView.layer.cornerRadius = 3.f;
         _descTextView.placeholder = @"请输入群介绍";
+        _descTextView.scrollEnabled = NO;
+        _descTextView.font = [UIFont systemFontOfSize:14.f];
     }
     return _descTextView;
 }
@@ -269,7 +251,7 @@
 -(GJTPostGroupInfoItemView *)groupLocationItemView {
     if (!_groupLocationItemView) {
         UIImage *img = [UIImage imageNamed:@"icon_location"];
-        _groupLocationItemView = [[GJTPostGroupInfoItemView alloc] initWithIcon:img title:@"你好" subTitle:@"有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说"];
+        _groupLocationItemView = [[GJTPostGroupInfoItemView alloc] initWithIcon:img title:@"定位" subTitle:@""];
     }
     return _groupLocationItemView;
 }
@@ -277,29 +259,18 @@
 -(GJTPostGroupInfoItemView *)groupTagItemView {
     if (!_groupTagItemView) {
         UIImage *img = [UIImage imageNamed:@"icon_location"];
-        _groupTagItemView = [[GJTPostGroupInfoItemView alloc] initWithIcon:img title:@"你好" subTitle:@"有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说"];
+        _groupTagItemView = [[GJTPostGroupInfoItemView alloc] initWithIcon:img title:@"标签" subTitle:@""];
     }
     return _groupTagItemView;
 }
 
--(GJTPostGroupInfoItemView *)groupOtherItemView {
-    if (!_groupOtherItemView) {
-        UIImage *img = [UIImage imageNamed:@"icon_location"];
-        _groupOtherItemView = [[GJTPostGroupInfoItemView alloc] initWithIcon:img title:@"你好" subTitle:@"有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说有话这里说"];
+
+-(UIScrollView *)mScrollView {
+    if (!_mScrollView) {
+        _mScrollView = [[UIScrollView alloc] init];
     }
-    return _groupOtherItemView;
+    return _mScrollView;
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

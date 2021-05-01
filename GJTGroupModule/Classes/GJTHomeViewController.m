@@ -6,7 +6,7 @@
 //
 
 #import "GJTHomeViewController.h"
-//#import <GJTQRCodeModule/GJTQRCodeModule.h>
+#import <GJTQRCodeModule/GJTQRCodeModule.h>
 #import "GJTPostGroupInfoViewController.h"
 #import "GJTGroupItemTableViewCell.h"
 #import "GJTGroupDetailViewController.h"
@@ -49,13 +49,13 @@
         // 弹出QQ的自定义视图
         [GJTTableSelectView addTableSelectViweWithWindowFrame:CGRectMake(self.view.bounds.size.width-100, 64, 150, 200) selectData:@[@"扫一扫",@"手动上传"] images:@[@"saoyisao",@"saoyisao"] action:^(NSInteger index) {
             NSLog(@"选择%ld",(long)index);
-//            if (index == 0) {
-//                GJTScanningViewController *scanViewController = [[GJTScanningViewController alloc] init];
-//                [self.navigationController pushViewController:scanViewController animated:YES];
-//            } else {
-//                GJTPostGroupInfoViewController *postViewController = [[GJTPostGroupInfoViewController alloc] init];
-//                [self.navigationController pushViewController:postViewController animated:YES];
-//            }
+            if (index == 0) {
+                GJTScanningViewController *scanViewController = [[GJTScanningViewController alloc] init];
+                [self.navigationController pushViewController:scanViewController animated:YES];
+            } else {
+                GJTPostGroupInfoViewController *postViewController = [[GJTPostGroupInfoViewController alloc] init];
+                [self.navigationController pushViewController:postViewController animated:YES];
+            }
             
         } animated:YES];
     }];
